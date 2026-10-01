@@ -1,0 +1,50 @@
+{
+  "before_kernels": 27,
+  "after_kernels": 24,
+  "retained_cubins_byte_identical": true,
+  "generated_cuda_removed": 27,
+  "activation_switch": "QWEN38_ORIN_PREFILL",
+  "python_before": {
+    "files": 20,
+    "bytes": 61262,
+    "functions": 64
+  },
+  "python_after": {
+    "files": 19,
+    "bytes": 42485,
+    "functions": 40
+  },
+  "final_runtime_and_launcher_match_e2e_payload": true,
+  "whole_python_bytes_reduction_percent": 30.650321569651663,
+  "whole_patch_before_bytes": 1008310,
+  "source_patch_before_bytes": 319756,
+  "e2e_prefill_tps": {
+    "512": 454.55179462133225,
+    "2048": 841.8297107228323,
+    "8192": 818.4184607840891
+  },
+  "e2e_decode_tps": {
+    "512": 9.98357425708232,
+    "2048": 9.926926316861275,
+    "8192": 9.706776690959309
+  },
+  "identical_output_runs": [
+    3,
+    3,
+    3
+  ],
+  "source_rebuild": {
+    "tilelang": "0.1.13",
+    "kernels": 24,
+    "bitwise_equal_kernel_outputs": true,
+    "identical_cubin_hashes": 24,
+    "tail_padding_and_zero_activation_rows": true,
+    "final_builder_sources_match_rebuilt": true
+  },
+  "final_preflight_passed": true,
+  "removed_experimental_env_options": 12,
+  "final_patch_bytes": {
+    "vllm-0.20-qwen38-orin-prefill.patch": 705831,
+    "vllm-0.20-qwen38-orin-prefill-source.patch": 92029
+  }
+}

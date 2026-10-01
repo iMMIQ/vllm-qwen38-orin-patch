@@ -1,0 +1,16 @@
+This distribution adds runtime hooks and model-specific kernels to a separately
+installed vLLM environment. It is not an official vLLM release.
+
+vLLM: Apache-2.0, Copyright contributors to the vLLM project.
+https://github.com/vllm-project/vllm/tree/v0.20.0
+The patch does not bundle or modify vLLM source files; hooks call its interfaces.
+
+TileLang: MIT, Copyright (c) Tile-AI.
+https://github.com/tile-ai/tilelang
+The SM87 cubins contain compiled TileLang tl_templates code.
+See LICENSES/TileLang-MIT.txt. Corresponding TileLang source and the build script
+are included. The compiler, CUDA toolkit, and generated intermediate CUDA files
+are not bundled.
+
+The patch was developed with AI assistance. Model weights and dependency
+packages are not distributed here; their licenses remain separate.

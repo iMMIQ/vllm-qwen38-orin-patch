@@ -1,0 +1,44 @@
+Orin/Qwen AWQ：当前优化的额外精度损失，2026-10-01
+
+Teacher-forced logprobs on identical token IDs; body score positions >=64, fixed-answer score positions start after the user prompt. Native W4A16 AWQ baseline, W8A8-only, and full optimized pipeline. Same unmodified trunk batch sizes; evaluation-only LM head/logsoftmax chunks of 128 in every mode.
+
+逐token固定前缀概率对照；正文从第64个位置计分，参考回答只计助手输出。三条路径均用同一LM head分块。
+样本      原版NLL/PPL       完整优化NLL/PPL       PPL变化      top1分歧
+english_technical-2048: 2.168613/8.7461 -> 2.168861/8.7483; PPL +0.025%; top1 3.276%
+english_technical-8192: 1.612924/5.0175 -> 1.613681/5.0213; PPL +0.076%; top1 3.617%
+italian_fiction-2048: 2.757877/15.7663 -> 2.761305/15.8205; PPL +0.343%; top1 7.560%
+italian_fiction-8192: 2.237647/9.3713 -> 2.261964/9.6019; PPL +2.461%; top1 8.132%
+python_code-2048: 0.609213/1.8390 -> 0.621418/1.8616; PPL +1.228%; top1 2.470%
+python_code-8192: 0.601832/1.8255 -> 0.607191/1.8353; PPL +0.537%; top1 2.141%
+chinese_chat: 仅记录输入概率变化；用户输入NLL不用于回答质量/PPL判断，排除聚合。
+chinese_answer: 0.524133/1.6890 -> 0.544132/1.7231; PPL +2.020%; top1 5.469%
+code_answer: 0.124615/1.1327 -> 0.119652/1.1271; PPL -0.495%; top1 0.781%
+repeat_answer: 0.000242/1.0002 -> 0.000174/1.0002; PPL -0.007%; top1 0.000%
+
+损失分解（聚合包含2K/8K重叠前缀，不能视为独立样本）：
+quantization: tokens=30336; delta NLL=+0.008776; PPL变化=+0.881%; top1分歧=4.345%; 原版margin>=1的位置分歧=0.300%; coarse KL=0.010421
+overall: tokens=30336; delta NLL=+0.009193; PPL变化=+0.923%; top1分歧=4.592%; 原版margin>=1的位置分歧=0.324%; coarse KL=0.010391
+fusion_and_wy: tokens=30336; delta NLL=+0.000417; PPL变化=+0.042%; top1分歧=4.308%; 原版margin>=1的位置分歧=0.091%; coarse KL=0.007657
+
+算子与模型误差：
+历史layer0 gate: W4解量化后额外W8权重L2=0.932%; 随机激活输出相对W4A16 L2=1.280%
+历史layer0 down: W4解量化后额外W8权重L2=1.421%; 随机激活输出相对W4A16 L2=1.696%
+norm融合最大L2=0.000505%; GDN融合最大L2=0.007747%。
+最新GEMM和WY在已有算子验证中逐位一致；不代表完整W8A8与W4A16一致。
+融合对平均NLL影响小，但归约舍入会影响后续量化边界，可能放大为明显的token排名变化。
+这组正文数据中，W8-only与完整优化的top1分歧约4.3%，因此不能宣称整套融合无损。
+原W4权重=(q4-zero_group)*scale_group；临时W8=round(W4/scale_channel)*scale_channel。
+group128有各自scale，改用一个输出channel scale会再次舍入；8bit临时视图不会还原原BF16权重。
+W8 per-channel scale跨整个K维，A8 scale跨每个token的所有channel；outlier可能放大其它值的量化步长。
+GDN state与KV仍使用FP32/FP16，但保存由量化投影算出的状态，后续原生decode仍会继承prefill差异。
+
+边界：
+This is a local diagnostic corpus, not a standard perplexity benchmark or task accuracy score.
+2K texts are prefixes of the corresponding 8K texts; aggregate counts overlapping tokens and samples are correlated.
+Chinese chat sample includes repeated user context. Its user-input NLL is excluded from aggregate PPL; it is not an assistant-answer quality metric.
+English/Italian/code sources have limited diversity.
+Top1 disagreement is under identical teacher-forced prefixes, not an error rate on an answer benchmark.
+Coarse KL uses shared returned top-5/observed-token IDs plus OTHER; it is a lower bound on full-vocabulary KL.
+Baseline is already AWQ Q4. This does not measure AWQ loss relative to original BF16 weights.
+Reference answers use older W4A16-generated fragments as fixed targets, not human correctness labels. They are teacher-forced as prefill, and do not simulate subsequent single-token Q4 decode.
+No executable code-agent, long output or retrieval accuracy evaluation.

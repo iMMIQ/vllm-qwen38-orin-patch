@@ -1,0 +1,19 @@
+{
+  "files_verified": 53,
+  "git_apply_check": true,
+  "git_apply_reverse_check": true,
+  "byte_identical": true,
+  "source_patch_apply_and_reverse_check": true,
+  "payload_checksums_verified": true,
+  "artifacts": {
+    "vllm-0.20-qwen38-orin-prefill.patch": {
+      "bytes": 705831,
+      "sha256": "b7018b64b538f063fc840725ed4f750969f51a39fb27c5ef89f01dd39d55db6b"
+    },
+    "vllm-0.20-qwen38-orin-prefill-source.patch": {
+      "bytes": 92029,
+      "sha256": "7b5a3d7fdea911e7d9e5b4c77927821f009147eff7c135f449f210347917ddd4"
+    }
+  },
+  "both_patch_actual_apply_reverse_roundtrip": true
+}

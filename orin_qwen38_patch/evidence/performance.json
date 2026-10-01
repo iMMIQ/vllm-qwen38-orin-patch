@@ -1,0 +1,47 @@
+{
+  "measurement": "input tokens / client TTFT; warmup then median of three runs; GPU 1300.5 MHz; batch=1",
+  "native": [
+    {
+      "input_tokens": 512,
+      "median_prefill_tps_client": 453.5140981247782,
+      "median_decode_tps_client": 9.98424291850137,
+      "median_ttft_s": 1.1289615959394723
+    },
+    {
+      "input_tokens": 2048,
+      "median_prefill_tps_client": 466.26589665337235,
+      "median_decode_tps_client": 9.924693312771714,
+      "median_ttft_s": 4.392343541956507
+    },
+    {
+      "input_tokens": 8192,
+      "median_prefill_tps_client": 438.3069718624989,
+      "median_decode_tps_client": 9.69732352993935,
+      "median_ttft_s": 18.69009741093032
+    }
+  ],
+  "optimized": [
+    {
+      "input_tokens": 512,
+      "median_prefill_tps_client": 454.8430739003148,
+      "median_decode_tps_client": 9.990247758767032,
+      "median_ttft_s": 1.125662958016619
+    },
+    {
+      "input_tokens": 2048,
+      "median_prefill_tps_client": 835.9811624971791,
+      "median_decode_tps_client": 9.935437250037683,
+      "median_ttft_s": 2.449815967003815
+    },
+    {
+      "input_tokens": 8192,
+      "median_prefill_tps_client": 815.1649102951546,
+      "median_decode_tps_client": 9.713201230536734,
+      "median_ttft_s": 10.049500287044793
+    }
+  ],
+  "output_tokens": {
+    "native": 64,
+    "optimized": 32
+  }
+}

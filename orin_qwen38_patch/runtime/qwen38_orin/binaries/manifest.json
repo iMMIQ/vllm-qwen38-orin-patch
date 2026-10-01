@@ -1,0 +1,674 @@
+{
+  "stats-34816-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      34816,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS"
+    ],
+    "argument_order": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "6244bb9a7d31c48a75d7969d8ee5fb188d3d9f852f7bfb222d5b618aa51dc1ba"
+  },
+  "expandlut-128-256-34816-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      272,
+      20,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 21376,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS",
+      "B"
+    ],
+    "argument_order": [
+      4,
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "e0be9691f2cefb017e340d5bee225be7cd27b97035cf924860eb44c24339a1f3"
+  },
+  "gemm2-34816-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      544,
+      32,
+      1
+    ],
+    "block": [
+      128,
+      1,
+      1
+    ],
+    "shared": 65536,
+    "signature": [
+      "A",
+      "B",
+      "AS",
+      "BS",
+      "C"
+    ],
+    "argument_order": [
+      0,
+      2,
+      1,
+      3,
+      4
+    ],
+    "sha256": "966ad82029c803fefe8256e7206588ee0006b1e2ff5b99aeb0238c143ce09838"
+  },
+  "stats-5120-17408": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      5120,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS"
+    ],
+    "argument_order": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "319ee12a43ef349536c3eb8d95b251ee7089e6f0e4a43154439a6777ae3bd78e"
+  },
+  "expandlut-64-256-5120-17408": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      80,
+      68,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 10688,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS",
+      "B"
+    ],
+    "argument_order": [
+      4,
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "3e40835afa65da0c596f1c83d90ad1c0aa58690dfeb19ae27b9723f5cec704f8"
+  },
+  "gemm2-5120-17408": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      80,
+      32,
+      1
+    ],
+    "block": [
+      128,
+      1,
+      1
+    ],
+    "shared": 65536,
+    "signature": [
+      "A",
+      "B",
+      "AS",
+      "BS",
+      "C"
+    ],
+    "argument_order": [
+      0,
+      2,
+      1,
+      3,
+      4
+    ],
+    "sha256": "935689e430c7fcb9a154aa3ecd19009052b246d6636da9b11a8bcc84d3591bdd"
+  },
+  "stats-16384-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      16384,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS"
+    ],
+    "argument_order": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "bba75504f6a4f4c4d40bd3dea1f2ecc09bede8df6519013e3555a393e9ce6024"
+  },
+  "expandlut-64-256-16384-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      256,
+      20,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 10688,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS",
+      "B"
+    ],
+    "argument_order": [
+      4,
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "a738fb3a1996071f73b27fdc48438009db7041438021d833ec60ef092f9c856a"
+  },
+  "gemm2-16384-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      256,
+      32,
+      1
+    ],
+    "block": [
+      128,
+      1,
+      1
+    ],
+    "shared": 65536,
+    "signature": [
+      "A",
+      "B",
+      "AS",
+      "BS",
+      "C"
+    ],
+    "argument_order": [
+      0,
+      2,
+      1,
+      3,
+      4
+    ],
+    "sha256": "f0d60677c05c0b9ece3d66198feaee0cd741355a40f6b0b882ff43683a940a27"
+  },
+  "stats-14336-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      14336,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS"
+    ],
+    "argument_order": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "883bd4dda6054e1a10a5f69ed4bd9bc786a6842719c6b1c81dde2ffb33c9858f"
+  },
+  "expandlut-128-256-14336-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      112,
+      20,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 21376,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS",
+      "B"
+    ],
+    "argument_order": [
+      4,
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "6804e9344a84e21c9d459090f27b4be287e0befd5f9e00f36b8168aabbb215b4"
+  },
+  "gemm2-14336-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      224,
+      32,
+      1
+    ],
+    "block": [
+      128,
+      1,
+      1
+    ],
+    "shared": 65536,
+    "signature": [
+      "A",
+      "B",
+      "AS",
+      "BS",
+      "C"
+    ],
+    "argument_order": [
+      0,
+      2,
+      1,
+      3,
+      4
+    ],
+    "sha256": "7281c828c53a9d1c26449ea8a6e34a7657c1a7dfa938c97ae1595ccb74c09c83"
+  },
+  "stats-5120-6144": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      5120,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS"
+    ],
+    "argument_order": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "f1a8712107d8c1fb6e0d94565bb07aa7462ecf660eadd408142ee3fba4cea493"
+  },
+  "expandlut-128-256-5120-6144": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      40,
+      24,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 21376,
+    "signature": [
+      "P",
+      "S",
+      "Z",
+      "BS",
+      "B"
+    ],
+    "argument_order": [
+      4,
+      3,
+      0,
+      1,
+      2
+    ],
+    "sha256": "ec421d467180d7373c11758e6043c3af4d8ac81db2e19e64e7537c0a8342c51a"
+  },
+  "gemm2-5120-6144": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      80,
+      32,
+      1
+    ],
+    "block": [
+      128,
+      1,
+      1
+    ],
+    "shared": 65536,
+    "signature": [
+      "A",
+      "B",
+      "AS",
+      "BS",
+      "C"
+    ],
+    "argument_order": [
+      0,
+      2,
+      1,
+      3,
+      4
+    ],
+    "sha256": "c4f16f05f98a07732b50fedd8faca82d8b8d8ab102c572832d101c128963ed5a"
+  },
+  "activation-5120": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      256,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "A",
+      "Q",
+      "S"
+    ],
+    "argument_order": [
+      0,
+      1,
+      2
+    ],
+    "sha256": "27b9a65fc45948f33a1a1a68cf92a31eae7528b2ebf0774edbca34056c84708c"
+  },
+  "activation-6144": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      256,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "A",
+      "Q",
+      "S"
+    ],
+    "argument_order": [
+      0,
+      1,
+      2
+    ],
+    "sha256": "6a2c47c206e442c6d8688d13ee7017609dd9a117177ac1d9d784b08934c76c3a"
+  },
+  "activation-17408": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      256,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "A",
+      "Q",
+      "S"
+    ],
+    "argument_order": [
+      0,
+      1,
+      2
+    ],
+    "sha256": "275b2f1072bf0e42fe59ba78e64c3bbf0d43716735e3f681e10c6498fc4602f6"
+  },
+  "norm-none": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      8192,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "X",
+      "W",
+      "Y"
+    ],
+    "argument_order": [
+      1,
+      0,
+      2
+    ],
+    "sha256": "6824aafacf00321ce2a1285c52750f66df02bc9cfbfdd73626dc84e1da038a31"
+  },
+  "norm-float16": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      8192,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "X",
+      "R",
+      "W",
+      "Y",
+      "RO"
+    ],
+    "argument_order": [
+      1,
+      4,
+      2,
+      0,
+      3
+    ],
+    "sha256": "091bcd982f515516b6ff0177204049f5c26ddf05ccad408d69917de3d293d3ed"
+  },
+  "norm-float32": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      8192,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "X",
+      "R",
+      "W",
+      "Y",
+      "RO"
+    ],
+    "argument_order": [
+      1,
+      4,
+      2,
+      0,
+      3
+    ],
+    "sha256": "167bf7564e89772818ab220392220f839785bd6ef4c0682ba28883b3d438662d"
+  },
+  "silu-q8": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      8192,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "X",
+      "Q",
+      "S"
+    ],
+    "argument_order": [
+      1,
+      2,
+      0
+    ],
+    "sha256": "aa186b9689021f224eec4918992bba4862929ed85cf902bbf8b2b0c72ee83a42"
+  },
+  "gdn-norm-q8": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      8192,
+      1,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 1024,
+    "signature": [
+      "X",
+      "QKVZ",
+      "W",
+      "Q",
+      "S"
+    ],
+    "argument_order": [
+      3,
+      1,
+      4,
+      2,
+      0
+    ],
+    "sha256": "3b887483f5697d591fc67f15c951a30d7aed486e1a4230424b794f02ab806333"
+  },
+  "wy-256-head-exp2": {
+    "symbol": "kernel_kernel",
+    "grid": [
+      48,
+      128,
+      1
+    ],
+    "block": [
+      256,
+      1,
+      1
+    ],
+    "shared": 41472,
+    "signature": [
+      "K",
+      "V",
+      "BETA",
+      "G",
+      "A",
+      "SEQ",
+      "W",
+      "U"
+    ],
+    "argument_order": [
+      4,
+      2,
+      3,
+      0,
+      5,
+      7,
+      1,
+      6
+    ],
+    "sha256": "70d6e018e4587bcebe570e65daebf5d9b378a99b9b8aa901b8741ab8d5d09f20"
+  }
+}

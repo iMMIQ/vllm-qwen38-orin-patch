@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-01",
+  "hardware": {
+    "device": "Jetson AGX Orin 64GB",
+    "compute_capability": "SM87",
+    "gpu_clock_mhz": 1300.5
+  },
+  "software": {
+    "vllm": "0.20.0",
+    "torch": "2.11.0",
+    "cuda": "12.6",
+    "triton": "3.5.1"
+  },
+  "measurement": {
+    "prefill": "input tokens / client TTFT, including first generated token and HTTP overhead",
+    "decode": "subsequent generated tokens / client elapsed time after first token",
+    "concurrency": 1,
+    "warmup_requests_per_length": 1,
+    "measured_requests_per_length": 3,
+    "output_tokens_per_request": 32
+  },
+  "results": [
+    {
+      "input_tokens": 512,
+      "median_prefill_tps_client": 454.55179462133225,
+      "median_decode_tps_client": 9.98357425708232
+    },
+    {
+      "input_tokens": 2048,
+      "median_prefill_tps_client": 841.8297107228323,
+      "median_decode_tps_client": 9.926926316861275
+    },
+    {
+      "input_tokens": 8192,
+      "median_prefill_tps_client": 818.4184607840891,
+      "median_decode_tps_client": 9.706776690959309
+    }
+  ],
+  "validation": {
+    "attached_linears": 256,
+    "wy_8192": true,
+    "w8a8_executed": true,
+    "identical_output_runs_vs_original_release_math": [
+      3,
+      3,
+      3
+    ],
+    "only_patch_and_model_mounted": true
+  }
+}

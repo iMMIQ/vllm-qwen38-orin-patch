@@ -1,0 +1,28 @@
+{
+  "repo": "philbert440/Qwen3.8-27B-W4A16-AWQ",
+  "revision": "7908d42a71077a5e4dc458f273682b12dfe384a0",
+  "model_safetensors_sha256": "15c5b07049149c73236254d53eca1d2f3274f9fb6803540ca47b1ce657dcf583",
+  "model_type": "qwen3_5",
+  "text_config": {
+    "hidden_size": 5120,
+    "intermediate_size": 17408,
+    "num_hidden_layers": 64,
+    "num_attention_heads": 24,
+    "num_key_value_heads": 4,
+    "head_dim": 256,
+    "linear_num_key_heads": 16,
+    "linear_num_value_heads": 48,
+    "linear_key_head_dim": 128,
+    "linear_value_head_dim": 128,
+    "full_attention_interval": 4,
+    "rms_norm_eps": 1e-06,
+    "hidden_act": "silu"
+  },
+  "quantization_config": {
+    "quant_method": "compressed-tensors",
+    "format": "pack-quantized",
+    "num_bits": 4,
+    "group_size": 128,
+    "symmetric": false
+  }
+}

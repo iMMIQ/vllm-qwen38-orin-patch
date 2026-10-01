@@ -1,0 +1,104 @@
+{
+  "kernels_compared": 24,
+  "all_bitwise_equal": true,
+  "gemm_tail_zero_padding": true,
+  "activation_zero_rows": true,
+  "results": [
+    {
+      "kernel": "stats-34816-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "expandlut-128-256-34816-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gemm2-34816-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "stats-5120-17408",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "expandlut-64-256-5120-17408",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gemm2-5120-17408",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "stats-16384-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "expandlut-64-256-16384-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gemm2-16384-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "stats-14336-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "expandlut-128-256-14336-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gemm2-14336-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "stats-5120-6144",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "expandlut-128-256-5120-6144",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gemm2-5120-6144",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "activation-5120",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "activation-6144",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "activation-17408",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "norm-none",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "norm-float16",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "norm-float32",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "silu-q8",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "gdn-norm-q8",
+      "bitwise_equal": true
+    },
+    {
+      "kernel": "wy-256-head-exp2",
+      "bitwise_equal": true
+    }
+  ]
+}
