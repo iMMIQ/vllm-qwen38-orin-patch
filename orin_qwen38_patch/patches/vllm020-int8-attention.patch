@@ -1,0 +1,94 @@
+--- a/vllm/v1/attention/ops/triton_unified_attention.py
++++ b/vllm/v1/attention/ops/triton_unified_attention.py
+@@ -181,7 +181,7 @@
+     )
+
+     dim_mask = tl.where(offs_d < HEAD_SIZE, 1, 0).to(tl.int1)
+-    query_mask_0 = tl.where(query_pos < cur_batch_query_len, 1, 0).to(tl.int1)
++    query_mask_0 = tl.where((query_pos < cur_batch_query_len) & (offs_m < BLOCK_Q * num_queries_per_kv), 1, 0).to(tl.int1)
+     query_mask_1 = tl.where(query_offset_1 < num_query_heads, 1, 0).to(tl.int1)
+
+     # Q : (BLOCK_M, HEAD_SIZE_PADDED)
+@@ -578,6 +578,10 @@
+     BLOCK_M = (
+         16 if num_queries_per_kv <= 16 else triton.next_power_of_2(num_queries_per_kv)
+     )
++    if (kv_quant_mode == KVQuantMode.INT8_PER_TOKEN_HEAD
++        and num_queries_per_kv == 6 and head_size == 256 and 1 < max_seqlen_q <= 9):
++        BLOCK_M = 32 if max_seqlen_q <= 5 else 64
++
+     BLOCK_Q = BLOCK_M // num_queries_per_kv
+
+     # Ideally we would launch with kernel with:
+@@ -619,7 +623,11 @@
+         or softmax_segm_output is None
+         or softmax_segm_max is None
+         or softmax_segm_expsum is None
+-        or max_seqlen_q > 1
++        or (max_seqlen_q > 1 and not (
++            kv_quant_mode == KVQuantMode.INT8_PER_TOKEN_HEAD
++            and num_queries_per_kv == 6 and head_size == 256
++            and max_seqlen_q <= 9))
++        or q.shape[0] > softmax_segm_output.shape[0]
+         or num_seqs > seq_threshold_3D
+         or is_batch_invariant
+     )
+@@ -656,7 +664,7 @@
+         tile_size = TILE_SIZE_PREFILL
+     else:
+         grid = (total_num_q_blocks, num_kv_heads, num_par_softmax_segments)
+-        tile_size = TILE_SIZE_DECODE
++        tile_size = 32 if kv_quant_mode == KVQuantMode.INT8_PER_TOKEN_HEAD else TILE_SIZE_DECODE
+
+     kernel_unified_attention[grid](
+         output_ptr=out,
+@@ -738,7 +746,7 @@
+             output_stride_0=out.stride(0),
+             output_stride_1=out.stride(1),
+             block_table_stride=block_table.stride(0),
+-            TILE_SIZE=TILE_SIZE_DECODE,
++            TILE_SIZE=tile_size,
+             HEAD_SIZE=head_size,
+             HEAD_SIZE_PADDED=triton.next_power_of_2(head_size),
+             query_start_len_ptr=cu_seqlens_q,
+--- a/vllm/v1/attention/backends/triton_attn.py
++++ b/vllm/v1/attention/backends/triton_attn.py
+@@ -175,11 +175,22 @@
+                 key=lambda x: abs(x - self.seq_threshold_3D),
+             )
+
++        buffer_tokens = self.seq_threshold_3D
++        if (
++            self.vllm_config.cache_config.cache_dtype == "int8_per_token_head"
++            and self.num_heads_q == 24 and self.num_heads_kv == 4
++            and self.headdim == 256 and self.vllm_config.num_speculative_tokens
++        ):
++            buffer_tokens = max(
++                buffer_tokens,
++                self.vllm_config.scheduler_config.max_num_seqs
++                * (1 + self.vllm_config.num_speculative_tokens),
++            )
+         self.num_par_softmax_segments = NUM_PAR_SOFTMAX_SEGMENTS
+         headdim_padded = next_power_of_2(self.headdim)
+         self.softmax_segm_output = torch.empty(
+             (
+-                self.seq_threshold_3D,
++                buffer_tokens,
+                 self.num_heads_q,
+                 self.num_par_softmax_segments,
+                 headdim_padded,
+@@ -188,12 +199,12 @@
+             device=device,
+         )
+         self.softmax_segm_max = torch.empty(
+-            (self.seq_threshold_3D, self.num_heads_q, self.num_par_softmax_segments),
++            (buffer_tokens, self.num_heads_q, self.num_par_softmax_segments),
+             dtype=torch.float32,
+             device=device,
+         )
+         self.softmax_segm_expsum = torch.empty(
+-            (self.seq_threshold_3D, self.num_heads_q, self.num_par_softmax_segments),
++            (buffer_tokens, self.num_heads_q, self.num_par_softmax_segments),
+             dtype=torch.float32,
+             device=device,
+         )

@@ -15,7 +15,7 @@ def resources():
         from .cuda_runtime import Runtime
 
         _runtime = Runtime()
-        # TP=1, max_num_seqs=1: projections execute sequentially on one stream.
+        # TP=1: batched projections and drafting execute sequentially on one stream.
         # Do not retain views of these buffers across projection calls.
         _scratch = {
             "weight": torch.empty(34816 * 5120, device="cuda", dtype=torch.int8),

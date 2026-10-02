@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 
 
-def check(model=None):
+def check(model=None, require_mtp=False):
     import torch
     import vllm
 
@@ -59,6 +59,37 @@ def check(model=None):
                 weights.get("symmetric"),
             ) != (4, 128, False):
                 raise RuntimeError("Expected asymmetric W4 group-128 weights")
+        if require_mtp:
+            from safetensors import safe_open
+
+            required = {
+                "mtp." + name + ".weight"
+                for name in (
+                    "fc",
+                    "pre_fc_norm_embedding",
+                    "pre_fc_norm_hidden",
+                    "norm",
+                    "layers.0.input_layernorm",
+                    "layers.0.post_attention_layernorm",
+                    "layers.0.self_attn.q_proj",
+                    "layers.0.self_attn.k_proj",
+                    "layers.0.self_attn.v_proj",
+                    "layers.0.self_attn.o_proj",
+                    "layers.0.self_attn.q_norm",
+                    "layers.0.self_attn.k_norm",
+                    "layers.0.mlp.gate_proj",
+                    "layers.0.mlp.up_proj",
+                    "layers.0.mlp.down_proj",
+                )
+            }
+            found = set()
+            for shard in Path(model).glob("*.safetensors"):
+                with safe_open(shard, framework="pt", device="cpu") as weights:
+                    found.update(weights.keys())
+            if missing := required - found:
+                raise RuntimeError(
+                    f"MTP tensors missing from checkpoint: {sorted(missing)}"
+                )
     result = {
         "vllm": vllm.__version__,
         "torch": torch.__version__,
@@ -74,4 +105,6 @@ def check(model=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model")
-    check(parser.parse_args().model)
+    parser.add_argument("--require-mtp", action="store_true")
+    args = parser.parse_args()
+    check(args.model, args.require_mtp)

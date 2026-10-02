@@ -3,6 +3,7 @@
 
 
 def install():
+    import os
     import vllm
 
     if vllm.__version__.split("+")[0] != "0.20.0":
@@ -10,3 +11,13 @@ def install():
     from .backend import install as install_backend
 
     install_backend()
+    from .mtp import install as install_mtp_guard
+
+    install_mtp_guard()
+    if os.environ.get("QWEN38_ORIN_DRAFT") == "1":
+        from .draft import install as install_draft
+
+        install_draft()
+    from .kv8_attention import install as install_kv8_attention
+
+    install_kv8_attention()

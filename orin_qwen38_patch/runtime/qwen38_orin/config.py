@@ -16,3 +16,24 @@ PROJECTIONS = {
 
 def padded_tokens(m):
     return (m + 255) // 256 * 256
+
+
+def request_buckets(max_num_seqs):
+    """Power-of-two capacities plus the configured final, possibly odd capacity."""
+    if max_num_seqs < 1:
+        raise ValueError("max_num_seqs must be positive")
+    buckets = []
+    size = 1
+    while size < max_num_seqs:
+        buckets.append(size)
+        size *= 2
+    return [*buckets, max_num_seqs]
+
+
+def decode_capture_sizes(max_num_seqs, draft_tokens, token_budget):
+    """Capture verification batches through the scheduler's configured capacity."""
+    stride = draft_tokens + 1
+    capacity = min(max_num_seqs, token_budget // stride)
+    if capacity < 1:
+        raise ValueError("Token budget must accommodate one decode request")
+    return [stride * size for size in request_buckets(capacity)]

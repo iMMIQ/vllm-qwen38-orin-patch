@@ -40,7 +40,17 @@ assert seed
 
 
 def request(length, outputs):
-    ids = (seed * ((length + len(seed) - 1) // len(seed)))[:length]
+    # Distinct first blocks keep this cold-prefill benchmark valid with prefix
+    # caching enabled. Tokenization takes place before the request timer.
+    with post(
+        "/tokenize",
+        {"model": args.model, "prompt": f"Request {time.time_ns()}.\n"},
+    ) as response:
+        prefix = json.load(response)["tokens"]
+    if len(prefix) >= length:
+        raise ValueError("Input length must exceed the unique request prefix")
+    remaining = length - len(prefix)
+    ids = prefix + (seed * ((remaining + len(seed) - 1) // len(seed)))[:remaining]
     payload = {
         "model": args.model,
         "prompt": ids,
@@ -54,6 +64,7 @@ def request(length, outputs):
     }
     started = time.monotonic()
     first = last = None
+    first_count = 0
     tokens = []
     usage = None
     finished = False
@@ -72,7 +83,9 @@ def request(length, outputs):
                 new = choice.get("token_ids") or []
                 if new:
                     last = time.monotonic()
-                    first = first or last
+                    if first is None:
+                        first = last
+                        first_count = len(new)
                     tokens.extend(new)
                 finished |= bool(choice.get("finish_reason"))
     assert finished and usage and first and last
@@ -85,7 +98,11 @@ def request(length, outputs):
         "output_tokens": outputs,
         "ttft_s": ttft,
         "prefill_tps_client": length / ttft,
-        "decode_tps_client": (outputs - 1) / (last - first) if outputs > 1 else None,
+        "first_chunk_tokens": first_count,
+        "decode_tps_client": (
+            (outputs - first_count) / (last - first) if last > first else None
+        ),
+        "end_to_end_output_tps_client": outputs / (last - started),
     }
 
 
@@ -104,10 +121,13 @@ for length in map(int, args.lengths.split(",")):
             r["prefill_tps_client"] for r in runs
         ),
     }
-    if args.outputs > 1:
+    if all(r["decode_tps_client"] is not None for r in runs):
         row["median_decode_tps_client"] = statistics.median(
             r["decode_tps_client"] for r in runs
         )
+    row["median_end_to_end_output_tps_client"] = statistics.median(
+        r["end_to_end_output_tps_client"] for r in runs
+    )
     results["completed"].append(row)
     with open(args.out, "w") as out:
         json.dump(results, out, ensure_ascii=False, indent=2)
